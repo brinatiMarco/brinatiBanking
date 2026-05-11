@@ -1,1 +1,24 @@
-<p>movimenti works!</p>
+<div class="table-container">
+    
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Importo (€)</th>
+        <th>Dettagli</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let t of tra">
+        <td data-label="ID">{{ t.id }}</td>
+        <td data-label="Importo (€)" [class.positivo]="t.importo > 0" [class.negativo]="t.importo < 0">
+          {{ t.importo | number:'1.2-2' }}
+        </td>
+        <td data-label="Dettagli">{{ t.dettagli }}</td>
+      </tr>
+      <tr *ngIf="!tra || tra.length === 0" class="empty">
+        <td colspan="3">Nessun dato disponibile</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

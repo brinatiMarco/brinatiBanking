@@ -1,1 +1,7 @@
-<p>deposito works!</p>
+<h2>DEPOSITO</h2>
+<input type="number" placeholder="0" [(ngModel)]="tr.id">
+<input type="number" placeholder="000.0" [(ngModel)]="tr.importo">
+<input type="text" placeholder="provenienza" [(ngModel)]="tr.dettagli">
+<input type="submit" (click)="aggiungiTransazione()">
+
+<p>{{ tr.id }} - {{ tr.importo }} - {{ tr.dettagli }}</p>

@@ -1,1 +1,14 @@
-<p>prelievo works!</p>
+<div class="card">
+  <h2 class="card-title">PRELIEVO</h2>
+  
+  <div class="form-container">
+    <input type="number" placeholder="ID Transazione" [(ngModel)]="tr.id">
+    <input type="number" placeholder="Importo (€)" [(ngModel)]="tr.importo">
+    <input type="text" placeholder="Causale (es. Spesa alimentare)" [(ngModel)]="tr.dettagli">
+    
+    <button class="btn-submit" (click)="aggiungiTransazione()">
+      Conferma Prelievo
+    </button>
+  </div>
+
+</div>
