@@ -2,9 +2,12 @@
   <h2 class="card-title">PRELIEVO</h2>
   
   <div class="form-container">
-    <input type="number" placeholder="ID Transazione" [(ngModel)]="tr.id">
-    <input type="number" placeholder="Importo (€)" [(ngModel)]="tr.importo">
-    <input type="text" placeholder="Causale (es. Spesa alimentare)" [(ngModel)]="tr.dettagli">
+    <label class="text-danger">ID Utente</label>
+    <input type="number" [(ngModel)]="tr.id">
+    <label class="text-danger">Importo</label>
+    <input type="number" [(ngModel)]="tr.importo">
+    <label class="text-danger">Descrizione</label>
+    <input type="text" [(ngModel)]="tr.dettagli">
     
     <button class="btn-submit" (click)="aggiungiTransazione()">
       Conferma Prelievo

@@ -1,7 +1,18 @@
-<h2>DEPOSITO</h2>
-<input type="number" placeholder="0" [(ngModel)]="tr.id">
-<input type="number" placeholder="000.0" [(ngModel)]="tr.importo">
-<input type="text" placeholder="provenienza" [(ngModel)]="tr.dettagli">
-<input type="submit" (click)="aggiungiTransazione()">
+<div class="card">
+    <h2 class="card-title">DEPOSITO</h2>
 
-<p>{{ tr.id }} - {{ tr.importo }} - {{ tr.dettagli }}</p>
+    <div class="form-container">
+        <label class="text-danger">ID Utente</label>
+        <input type="number" [(ngModel)]="tr.id">
+        <label class="text-danger">Importo</label>
+        <input type="number" [(ngModel)]="tr.importo">
+        <label class="text-danger">Descrizione</label>
+        <input type="text" [(ngModel)]="tr.dettagli">
+        
+        
+        <button class="btn-submit" (click)="aggiungiTransazione()">
+            Conferma Prelievo
+        </button>
+    </div>
+
+</div>
