@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Transazione } from '../../models/transazione';
+import { Transazione } from '../../models/transazioniModel';
 import { FormsModule } from '@angular/forms';
 import { Dati } from '../dati';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,8 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class Deposito {
 
   constructor(private dati: Dati,
-    private router: Router,
-    private activatedRoute: ActivatedRoute
+    private router: Router
   ) {}
 
   tr: Transazione = {
@@ -24,12 +23,19 @@ export class Deposito {
   } as Transazione;
 
   aggiungiTransazione() {
-    if (this.tr.importo <= 0 || this.tr.dettagli.trim() === '' || this.tr.id <= 0) {
-      alert('Per favore, inserisci valori validi per tutti i campi.');
-      return;
+    if(this.dati.accountCorrente.account_id != 0){
+
+      this.tr.id = this.dati.accountCorrente.account_id;
+
+      if (this.tr.importo <= 0 || this.tr.dettagli.trim() === '') {
+        alert('Per favore, inserisci valori validi per tutti i campi.');
+        return;
+      }else{
+      this.dati.aggiungiTransazione(this.tr);
+      this.router.navigate(['/movimenti']);
+      }
     }else{
-    this.dati.aggiungiTransazione(this.tr);
-    this.router.navigate(['/movimenti']);
+      alert('Per favore, accedi al tuo account prima di effettuare un deposito.');
     }
   }
 }

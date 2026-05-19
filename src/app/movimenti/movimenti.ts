@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Dati } from '../dati';
-import { Transazione } from '../../models/transazione';
+import { Transazione } from '../../models/transazioniModel';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -16,9 +16,12 @@ export class Movimenti {
     tra : Transazione[] = [];
 
   ngOnInit() {
-    this.tra = this.dati.listaTransazioni;
+    for (let i = 0; i < this.dati.listaTransazioni.length; i++) {
+      if (this.dati.listaTransazioni[i].id === this.dati.accountCorrente.account_id) {
+        this.tra.push(this.dati.listaTransazioni[i]);
+      }
+    }
   }
-
 
 
 }

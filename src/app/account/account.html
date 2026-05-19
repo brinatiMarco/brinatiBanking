@@ -1,0 +1,15 @@
+<div class="login-card" >
+  <h2>Accedi</h2>
+
+  <form (ngSubmit)="effettuaAccesso()"> 
+
+    <label>ID Account</label>
+    <input type="number" name="account_id" [(ngModel)]="acc.account_id"/>
+
+    <label>Nome Account</label>
+    <input type="text" name="owner_name" [(ngModel)]="acc.owner_name"/>
+
+    <button type="submit">Accedi</button>
+
+  </form>
+</div>

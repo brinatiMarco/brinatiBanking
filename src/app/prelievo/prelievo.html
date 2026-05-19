@@ -2,12 +2,13 @@
   <h2 class="card-title">PRELIEVO</h2>
   
   <div class="form-container">
-    <label class="text-danger">ID Utente</label>
-    <input type="number" [(ngModel)]="tr.id">
+
     <label class="text-danger">Importo</label>
-    <input type="number" [(ngModel)]="tr.importo">
+    <input type="number" name="importo" [(ngModel)]="tr.importo">
+
     <label class="text-danger">Descrizione</label>
-    <input type="text" [(ngModel)]="tr.dettagli">
+    <input type="text" nane="dettagli" [(ngModel)]="tr.dettagli">
+
     
     <button class="btn-submit" (click)="aggiungiTransazione()">
       Conferma Prelievo
