@@ -12,6 +12,6 @@ export const routes: Routes = [
     { path: "deposito", component: Deposito },
     { path: "conversione", component: Conversione },
     { path: "movimenti", component: Movimenti },
-    { path: "account", component: Account },
+    { path: "login", component: Account },
     { path: "**", component: Home }
 ];

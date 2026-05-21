@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { Transazione } from '../../models/transazioniModel';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { Dati } from '../dati';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-deposito',
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './deposito.html',
   styleUrl: './deposito.css',
 })
@@ -19,8 +20,10 @@ export class Deposito {
   tr: Transazione = {
     id: 0,
     importo: 0,
-    dettagli: ' ',
+    dettagli: '',
   } as Transazione;
+
+  isLoading = false;
 
   aggiungiTransazione() {
     if(this.dati.accountCorrente.account_id != 0){
@@ -31,11 +34,23 @@ export class Deposito {
         alert('Per favore, inserisci valori validi per tutti i campi.');
         return;
       }else{
-      this.dati.aggiungiTransazione(this.tr);
-      this.router.navigate(['/movimenti']);
+        this.isLoading = true;
+
+        this.dati.depositaSuAccountCorrente(this.tr.importo, this.tr.dettagli).subscribe({
+          next: () => {
+            this.isLoading = false;
+            this.router.navigate(['/movimenti']);
+          },
+          error: (e) => {
+            this.isLoading = false;
+            alert('Errore durante il deposito, riprova più tardi.');
+            console.error(e);
+          }
+        });
       }
     }else{
       alert('Per favore, accedi al tuo account prima di effettuare un deposito.');
+      this.router.navigate(['/login']);
     }
   }
 }

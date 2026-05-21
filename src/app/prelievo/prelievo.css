@@ -1,80 +1,246 @@
-/* Contenitore a scheda */
+/* ───── Reset & Wrapper ───── */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 60%, #16213e 100%);
+  padding: 20px;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+/* ───── Card ───── */
 .card {
-  background-color: #fff;
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  max-width: 500px;
-  margin: 30px auto; /* Centra la card nella pagina */
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #1e1e2e;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 20px;
+  padding: 40px;
+  width: 100%;
+  max-width: 460px;
+  box-shadow:
+    0 25px 50px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.03);
 }
 
-/* Titolo */
+/* ───── Header ───── */
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.icon-wrapper {
+  width: 52px;
+  height: 52px;
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ef4444;
+  flex-shrink: 0;
+  /* ruotiamo la X in modo che l'icona + diventi una freccia verso il basso */
+  transform: rotate(45deg);
+}
+
 .card-title {
-  margin-top: 0;
-  color: #dc3545; /* Rosso per indicare un'uscita */
-  border-bottom: 2px solid #f8d7da;
-  padding-bottom: 10px;
-  margin-bottom: 25px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #f1f1f1;
+  letter-spacing: -0.3px;
 }
 
-/* Layout del form */
+.card-subtitle {
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: 3px;
+}
+
+/* ───── Divider ───── */
+.divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.06);
+  margin-bottom: 28px;
+}
+
+/* ───── Form ───── */
 .form-container {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
 }
 
-/* Stile Input */
-input {
-  padding: 12px 15px;
-  border: 1px solid #e0e0e0;
-  border-radius: 6px;
-  font-size: 15px;
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #9ca3af;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
+/* ───── Input ───── */
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  background: #12121f;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  overflow: hidden;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-/* Effetto focus sugli input */
-input:focus {
-  outline: none;
-  border-color: #dc3545;
-  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+.input-wrapper:focus-within {
+  border-color: rgba(239, 68, 68, 0.5);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
 }
 
-/* Pulsante di invio */
-.btn-submit {
-  padding: 12px 20px;
-  background-color: #dc3545;
-  color: white;
-  border: none;
-  border-radius: 6px;
+.input-prefix {
+  padding: 0 14px;
   font-size: 16px;
   font-weight: 600;
+  color: #ef4444;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  user-select: none;
+}
+
+.field-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 14px 16px;
+  font-size: 15px;
+  color: #f1f1f1;
+  font-family: inherit;
+}
+
+.field-input.no-prefix {
+  padding-left: 16px;
+}
+
+.field-input::placeholder {
+  color: #3f3f5a;
+}
+
+/* Rimuove le frecce dagli input number */
+.field-input::-webkit-outer-spin-button,
+.field-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+/* ───── Bottone Disabled ───── */
+.btn-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.2);
+}
+/* ───── Bottone ───── */
+.btn-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 20px;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
   cursor: pointer;
-  transition: background-color 0.2s, transform 0.1s;
-  margin-top: 10px;
+  letter-spacing: 0.2px;
+  margin-top: 8px;
+  transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 4px 20px rgba(239, 68, 68, 0.3);
+}
+
+.btn-submit:hover:not(:disabled) {
+  opacity: 0.92;
+  box-shadow: 0 6px 25px rgba(239, 68, 68, 0.45);
+}
+
+.btn-submit:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+/* ───── Bottone Disabled ───── */
+.btn-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.2);
+}
+
+/* ───── Spinner Animation ───── */
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.btn-submit:disabled:hover {
+  opacity: 0.6;
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.2);
+}
+
+/* ───── Spinner Animation ───── */
+.spinner {
+  animation: spin 1s linear infinite;
+  stroke: #fff;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+/* ───── Bottone ───── */
+.btn-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 20px;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.2px;
+  margin-top: 8px;
+  transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 4px 20px rgba(239, 68, 68, 0.3);
 }
 
 .btn-submit:hover {
-  background-color: #c82333; /* Rosso più scuro al passaggio del mouse */
+  opacity: 0.92;
+  box-shadow: 0 6px 25px rgba(239, 68, 68, 0.45);
 }
 
 .btn-submit:active {
-  transform: scale(0.98); /* Leggero effetto "pressione" */
-}
-
-/* Box Anteprima */
-.preview-box {
-  margin-top: 25px;
-  padding: 15px;
-  background-color: #f8f9fa;
-  border-radius: 6px;
-  border-left: 4px solid #dc3545;
-  color: #555;
-  font-size: 14px;
-}
-
-.text-danger {
-  color: #dc3545;
-  font-weight: bold;
+  transform: scale(0.98);
 }

@@ -1,1 +1,122 @@
-<p>home works!</p>
+<div class="page-wrapper">
+
+  <div class="card">
+
+    <!-- Loading -->
+    <div *ngIf="isLoading" class="loading-container">
+      <div class="spinner"></div>
+      <p>Caricamento profilo...</p>
+    </div>
+
+    <!-- Content -->
+    <div *ngIf="!isLoading" class="content">
+
+      <!-- Greeting -->
+      <div class="greeting">
+        <h1>Ciao, <span class="name">{{ ownerName }}</span> 👋</h1>
+        <p>Benvenuto nel tuo conto bancario</p>
+      </div>
+
+      <!-- Balance Card -->
+      <div class="balance-card">
+
+        <div class="balance-label">Saldo Totale</div>
+
+        <div class="balance-amount">
+          {{ convertedBalance | number:'1.2-8' }}
+          <span class="currency" [class.crypto]="isCrypto">{{ selectedCurrency }}</span>
+        </div>
+
+        <div class="balance-original" *ngIf="selectedCurrency !== originalCurrency">
+          ({{ originalBalance | number:'1.2-2' }} {{ originalCurrency }})
+        </div>
+
+        <div class="conversion-info" *ngIf="selectedCurrency !== originalCurrency && conversionRate !== 1">
+          <small *ngIf="!isCrypto">
+            Tasso: 1 {{ originalCurrency }} = {{ conversionRate | number:'1.3-3' }} {{ selectedCurrency }}
+          </small>
+          <small *ngIf="isCrypto">
+            Prezzo: 1 {{ selectedCurrency }} = {{ conversionRate | number:'1.2-2' }} {{ originalCurrency }}
+          </small>
+        </div>
+
+        <div class="divider-card"></div>
+
+        <!-- Tabs Fiat/Crypto -->
+        <div class="tabs">
+          <button 
+            class="tab"
+            [class.active]="!isCrypto"
+            (click)="cambiaModalita('fiat')">
+            💵 Valute
+          </button>
+          <button 
+            class="tab"
+            [class.active]="isCrypto"
+            (click)="cambiaModalita('crypto')">
+            ₿ Cripto
+          </button>
+        </div>
+
+        <!-- Currency Selector -->
+        <div class="currency-selector-wrapper">
+          <label class="currency-label">
+            {{ isCrypto ? 'Seleziona cripto' : 'Seleziona valuta' }}
+          </label>
+
+          <div class="select-wrapper">
+            <select
+              [(ngModel)]="selectedCurrency"
+              (change)="isCrypto ? convertiCripto(selectedCurrency) : convertiValuta(selectedCurrency)"
+              [disabled]="isConverting"
+              class="currency-select"
+            >
+              <option *ngFor="let valuta of valuteMostrate" [value]="valuta">
+                {{ valuta }}
+              </option>
+            </select>
+            <div class="select-arrow">▼</div>
+          </div>
+
+          <div *ngIf="isConverting" class="converting">
+            <span class="mini-spinner"></span>
+            Conversione in corso...
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="actions">
+
+        <button class="btn-action deposit" (click)="navDeposito()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M12 4v16m8-8H4" />
+          </svg>
+          <div>
+            <div class="btn-title">Deposito</div>
+            <div class="btn-subtitle">Aggiungi fondi</div>
+          </div>
+        </button>
+
+        <button class="btn-action withdraw" (click)="navPrelievo()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M20 12H4" />
+          </svg>
+          <div>
+            <div class="btn-title">Prelievo</div>
+            <div class="btn-subtitle">Ritira fondi</div>
+          </div>
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

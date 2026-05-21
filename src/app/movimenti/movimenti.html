@@ -1,24 +1,92 @@
-<div class="table-container">
-    
-  <table>
-    <thead>
-      <tr>
-        <th>Utente</th>
-        <th>Importo </th>
-        <th>Dettagli</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let t of tra">
-        <td data-label="ID">{{ t.id }}</td>
-        <td data-label="Importo (€)" [class.positivo]="t.importo > 0" [class.negativo]="t.importo < 0">
-          {{ t.importo | number:'1.2-2' }}
-        </td>
-        <td data-label="Dettagli">{{ t.dettagli }}</td>
-      </tr>
-      <tr *ngIf="!tra || tra.length === 0" class="empty">
-        <td colspan="3">Nessun dato disponibile</td>
-      </tr>
-    </tbody>
-  </table>
+<div class="page-wrapper">
+
+  <div class="card">
+
+    <div class="header">
+      <div>
+        <h2 class="title">Movimenti</h2>
+        <p class="subtitle">
+          Storico completo delle transazioni
+        </p>
+      </div>
+
+      <div class="badge">
+        {{ tra.length }} transazioni
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Loading -->
+    <div *ngIf="isLoading" class="loading-container">
+      <div class="spinner"></div>
+      <p>Caricamento movimenti...</p>
+    </div>
+
+    <!-- Empty -->
+    <div *ngIf="!isLoading && tra.length === 0" class="empty-state">
+      <div class="empty-icon">📭</div>
+      <h3>Nessun movimento</h3>
+      <p>Le tue transazioni appariranno qui.</p>
+    </div>
+
+    <!-- Tabella -->
+    <div *ngIf="!isLoading && tra.length > 0" class="table-wrapper">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Tipo</th>
+            <th>Importo</th>
+            <th>Descrizione</th>
+            <th>Saldo dopo</th>
+            <th>Data</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr *ngFor="let t of tra">
+
+            <td>
+              <div 
+                class="type-badge"
+                [class.deposit]="t.type === 'deposit'"
+                [class.withdrawal]="t.type === 'withdrawal'"
+              >
+                {{ t.type === 'deposit' ? 'Deposito' : 'Prelievo' }}
+              </div>
+            </td>
+
+            <td
+              class="amount"
+              [class.positive]="t.importo > 0"
+              [class.negative]="t.importo < 0"
+            >
+              {{ t.importo | number:'1.2-2' }} €
+            </td>
+
+            <td class="description">
+              {{ t.dettagli || '-' }}
+            </td>
+
+            <td class="balance">
+              {{ t.balance_after | number:'1.2-2' }} €
+            </td>
+
+            <td class="date">
+              {{ formatData(t.created_at) }}
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
 </div>

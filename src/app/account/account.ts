@@ -17,22 +17,38 @@ export class Account {
     private router: Router
   ) {}
 
-  acc : AccountModel = {
+  acc: AccountModel = {
     account_id: 0,
     owner_name: '',
     currency: 'EUR',
     balance: 0
   } as AccountModel;
-  
+
+  isLoading = false;
 
   effettuaAccesso() {
-    for (let account of this.dati.listaAccount) {
-      if (this.acc.account_id === account.account_id && this.acc.owner_name.trim() === account.owner_name) {
-        this.dati.accountCorrente = account;
-        this.router.navigate(['/home']);
-        return;
-      }
+    if (!this.acc.account_id || this.acc.account_id <= 0) {
+      alert('Per favore, inserisci un ID account valido.');
+      return;
     }
-    alert('Account non trovato. Per favore, inserisci un ID e un nome utente valido.');
+
+    this.isLoading = true;
+
+    this.dati.checkAccount(this.acc.account_id).subscribe({
+      next: (exists: boolean) => {
+        if (exists) {
+          this.dati.setAccountCorrente(this.acc);
+          this.router.navigate(['/home']);
+        } else {
+          this.isLoading = false;
+          alert('Account non trovato. Per favore, inserisci un ID valido.');
+        }
+      },
+      error: (err) => {
+        console.error('Errore accesso:', err);
+        this.isLoading = false;
+        alert('Errore durante l\'accesso. Riprova più tardi.');
+      }
+    });
   }
 }

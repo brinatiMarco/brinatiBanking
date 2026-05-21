@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { RouterLink, RouterLinkActive } from '@angular/router'
+import { RouterLink, RouterLinkActive } from '@angular/router';
+
 @Component({
   selector: 'app-navbar',
   imports: [CommonModule, RouterLink, RouterLinkActive],
@@ -10,4 +10,13 @@ import { RouterLink, RouterLinkActive } from '@angular/router'
 })
 export class Navbar {
 
+  mobileMenuOpen = false;
+
+  toggleMenu() {
+    this.mobileMenuOpen = !this.mobileMenuOpen;
+  }
+
+  closeMobileMenu() {
+    this.mobileMenuOpen = false;
+  }
 }
